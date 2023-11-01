@@ -20,9 +20,8 @@ const Home = ({ logout }) => {
       // console.log(">>>>>>>>Home useEffect >> fetchQuestions: 1");
 
       let questions = await axios.get(
-        "http://localhost:4000/api/questions/all"
+        `${process.env.REACT_APP_base_url}/api/questions/all`
       );
-      // console.log(">>>>>>>>Home useEffect >> fetchQuestions: 2");
 
       // console.log(">>>>>>>>Fetched questions:", questions.data.data);
 
@@ -51,16 +50,14 @@ const Home = ({ logout }) => {
 
         <h4>Welcome: {userData.user?.display_name}</h4>
       </div>
-      {/* <button onClick={logout}>Log out</button> */}
+     
       <h3 className="home__question">Questions</h3>
       <div> printed: {allQuestions[0]?.question_id}</div>
       <div className="home__questionLists">
         <div>
           {allQuestions?.map((question) => (
             <div key={question.question_id}>
-              {/* <div>{question.question}</div> */}
               <Link
-                // to={`/answer/questionId`}
                 to={`/Answer/${question.question_id}`}
                 // state prop used to pass the data along the link
                 state={{

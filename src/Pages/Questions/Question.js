@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Question.css";
-import LandingPage from "../LandingPage/LandingPage";
-import Header from "../Header/Header";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -22,40 +20,30 @@ function Question() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("ask question>>> -1");
+
     setForm(() => {
       return { ...form, userId: userData.user.id };
     });
-    // console.log("[[[[[[[[[ Values to be post ", userData.user?.id);
-    // console.log(
-    //   "[[[[[[[[[ Values to be post ",
-    //   form.title,
-    //   form.description,
-    //   userData.user.id
-    // );
 
     try {
       // console.log("ask question>>> 0");
       console.log(form);
 
       //sending data to be registered in database
-      await axios.post("http://localhost:4000/api/questions/", {
+      await axios.post(`${process.env.REACT_APP_base_url}/api/questions/`, {
         question: form.title,
         description: form.description,
         user_id: userData.user.id,
       });
-      // console.log("ask question>>> 1");
 
       //navigate to homepage once the question is posted
       navigate("/");
-      // console.log("ask question>>> 2");
     } catch (error) {
       console.log("problem ==>", error.response.data.msg);
       console.log("oops>>>...watchout");
     }
   };
 
-  // document.getElementById("email").value = userData.user?.display_name;
   return (
     <div className="container">
       <div className="askcover">

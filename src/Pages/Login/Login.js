@@ -10,29 +10,15 @@ const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({});
 
-  // const [type, setType] = useState("password");
-  // const [visibility, setVisibilitiy] = useState(false);
-
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  //Password visiblity
-
-  // const handleToogle = () => {
-  //   if (type === "password") {
-  //     setVisibilitiy(true);
-  //     setType("text");
-  //   } else {
-  //     setVisibilitiy(false);
-  //     setType("password");
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       //sending user data to database to be logged in
       const loginRes = await axios.post(
-        "http://localhost:4000/api/users/login",
+        `${process.env.REACT_APP_base_url}/api/users/login`,
         {
           email: form.email,
           password: form.password,
@@ -77,7 +63,6 @@ const Login = () => {
               </div>
               <form onSubmit={handleSubmit}>
                 <br />
-                {/* <label>Email: </label> <br/> */}
                 <input
                   placeholder="Your Email"
                   type="text"
@@ -85,7 +70,6 @@ const Login = () => {
                   onChange={handleChange}
                 />
                 <br /> <br />
-                {/* <label>Password: </label> */}
                 <input
                   placeholder="Your Password"
                   type="password"
